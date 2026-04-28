@@ -1,5 +1,7 @@
 export type ThemeMode = 'light' | 'dark';
 export type AppointmentStatus = 'upcoming' | 'completed' | 'cancelled';
+export type PaymentOption = 'prepay-now' | 'pay-in-person';
+export type PaymentStatus = 'paid' | 'pending' | 'card-hold-only';
 
 export interface Service {
   id: string;
@@ -27,6 +29,11 @@ export interface Appointment {
   time: string;
   status: AppointmentStatus;
   notes: string;
+  paymentOption: PaymentOption;
+  cardOnFile: boolean;
+  cardLast4: string;
+  paymentStatus: PaymentStatus;
+  policyAccepted: boolean;
   createdAt?: string;
 }
 
@@ -39,6 +46,11 @@ export interface CreateAppointmentInput {
   date: string;
   time: string;
   notes: string;
+  paymentOption: PaymentOption;
+  cardOnFile: boolean;
+  cardLast4: string;
+  paymentStatus: PaymentStatus;
+  policyAccepted: boolean;
 }
 
 export interface BookingDraft {
@@ -50,6 +62,13 @@ export interface BookingDraft {
   serviceId: string;
   stylistId: string;
   notes: string;
+  paymentOption: PaymentOption;
+  cardholderName: string;
+  cardNumber: string;
+  expirationDate: string;
+  cvc: string;
+  billingZip: string;
+  policyAccepted: boolean;
 }
 
 export interface TimeSlotOption {
@@ -63,4 +82,36 @@ export interface StylistAvailability {
   date: string;
   stylistId: string;
   times: string[];
+}
+
+export interface CustomerProfile {
+  id: string;
+  name: string;
+  visits: number;
+  preferredServiceId: string;
+  preferredStylistId: string;
+  lastVisit: string;
+  status: 'new' | 'returning' | 'vip';
+}
+
+export interface AdminMetric {
+  id: string;
+  label: string;
+  value: string;
+  detail: string;
+}
+
+export interface RecentActivityItem {
+  id: string;
+  title: string;
+  detail: string;
+  timestamp: string;
+}
+
+export interface DemoWalkthroughStep {
+  id: string;
+  route: '/' | '/booking' | '/admin';
+  title: string;
+  body: string;
+  target: string;
 }

@@ -26,6 +26,11 @@ describe('Supabase appointment mapping', () => {
       time: '10:00',
       notes: '',
       status: 'upcoming',
+      paymentOption: 'pay-in-person',
+      cardOnFile: false,
+      cardLast4: '',
+      paymentStatus: 'pending',
+      policyAccepted: false,
       createdAt: '2026-04-18T10:00:00Z'
     });
   });

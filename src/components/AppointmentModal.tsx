@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { SALON_ADDRESS } from '@/data/salonConfig';
 import type { Appointment, AppointmentStatus, Service, Stylist } from '@/lib/types';
 
 interface AppointmentModalProps {
@@ -23,7 +24,7 @@ export function AppointmentModal({ appointment, services, stylists, onClose, onS
     return null;
   }
 
-  function updateField(field: keyof Appointment, value: string) {
+  function updateField(field: keyof Appointment, value: Appointment[keyof Appointment]) {
     setDraft((current) => current ? { ...current, [field]: value } : current);
   }
 
@@ -91,12 +92,46 @@ export function AppointmentModal({ appointment, services, stylists, onClose, onS
               ))}
             </select>
           </label>
+          <label className="field-group">
+            <span>Payment option</span>
+            <select value={draft.paymentOption} onChange={(event) => updateField('paymentOption', event.target.value)}>
+              <option value="prepay-now">Prepay now</option>
+              <option value="pay-in-person">Pay in person</option>
+            </select>
+          </label>
+          <label className="field-group">
+            <span>Payment status</span>
+            <select value={draft.paymentStatus} onChange={(event) => updateField('paymentStatus', event.target.value)}>
+              <option value="paid">Paid</option>
+              <option value="pending">Pending</option>
+              <option value="card-hold-only">Card hold only</option>
+            </select>
+          </label>
+          <label className="field-group">
+            <span>Card on file</span>
+            <select value={draft.cardOnFile ? 'yes' : 'no'} onChange={(event) => updateField('cardOnFile', event.target.value === 'yes')}>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </label>
+          <label className="field-group">
+            <span>Card last four</span>
+            <input value={draft.cardLast4} onChange={(event) => updateField('cardLast4', event.target.value)} placeholder="4242" />
+          </label>
+          <label className="field-group">
+            <span>Policy accepted</span>
+            <select value={draft.policyAccepted ? 'yes' : 'no'} onChange={(event) => updateField('policyAccepted', event.target.value === 'yes')}>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </label>
         </div>
 
         <label className="field-group">
           <span>Notes</span>
           <textarea value={draft.notes} onChange={(event) => updateField('notes', event.target.value)} rows={4} />
         </label>
+        <p className="availability-helper">Location: {SALON_ADDRESS}</p>
 
         <div className="modal-actions">
           <button type="button" className="danger-action" onClick={() => onCancelAppointment(appointment.id)}>

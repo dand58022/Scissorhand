@@ -1,19 +1,22 @@
-import primaryIconDark from '@/assets/logos/primary_icon_dark.png';
-import primaryIconLight from '@/assets/logos/primary_icon_light.png';
-import primaryLogoDark from '@/assets/logos/primary_logo_dark.png';
-import primaryLogoLight from '@/assets/logos/primary_logo_light.png';
-import smallIconDark from '@/assets/logos/small_icon_dark.png';
-import smallIconLight from '@/assets/logos/small_icon_light.png';
+import primaryIconDark from '@/assets/logos/primary_icon_dark_cropped.png';
+import primaryIconLight from '@/assets/logos/primary_icon_light_cropped.png';
+import primaryLogoDark from '@/assets/logos/primary_logo_dark_cropped.png';
+import primaryLogoLight from '@/assets/logos/primary_logo_light_cropped.png';
+import mainLogoTransparent from '@/assets/logos/main_logo_transparent.png';
 import type { ThemeMode } from '@/lib/types';
 
 interface BrandMarkProps {
   alt?: string;
   className?: string;
+  placement: 'navbar' | 'hero' | 'booking' | 'admin' | 'footer';
   theme: ThemeMode;
-  variant: 'primary-logo' | 'primary-icon' | 'small-icon';
 }
 
 const logoMap = {
+  'main-logo': {
+    dark: mainLogoTransparent,
+    light: mainLogoTransparent
+  },
   'primary-logo': {
     dark: primaryLogoDark,
     light: primaryLogoLight
@@ -21,19 +24,39 @@ const logoMap = {
   'primary-icon': {
     dark: primaryIconDark,
     light: primaryIconLight
-  },
-  'small-icon': {
-    dark: smallIconDark,
-    light: smallIconLight
   }
 };
 
-export function BrandMark({ alt = 'Scissorhands', className, theme, variant }: BrandMarkProps) {
+const placementMap = {
+  // Compact placements use the cropped icon artwork so the visible mark size
+  // is controlled by the wrapper rather than by the original transparent canvas.
+  navbar: {
+    variant: 'main-logo'
+  },
+  hero: {
+    variant: 'primary-logo'
+  },
+  booking: {
+    variant: 'primary-icon'
+  },
+  admin: {
+    variant: 'primary-icon'
+  },
+  footer: {
+    variant: 'primary-icon'
+  }
+} as const;
+
+export function BrandMark({ alt = 'Scissorhands', className, placement, theme }: BrandMarkProps) {
+  const { variant } = placementMap[placement];
+
   return (
-    <img
-      alt={alt}
-      className={className}
-      src={logoMap[variant][theme]}
-    />
+    <span className={`brandmark brandmark--${placement} ${className ?? ''}`.trim()}>
+      <img
+        alt={alt}
+        className="brandmark__image"
+        src={logoMap[variant][theme]}
+      />
+    </span>
   );
 }

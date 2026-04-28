@@ -9,6 +9,7 @@ import { StylistsSection } from '@/sections/StylistsSection';
 import type { Service, Stylist, ThemeMode } from '@/lib/types';
 
 interface HomePageProps {
+  onStartDemo: () => void;
   services: Service[];
   stylists: Stylist[];
   theme: ThemeMode;
@@ -17,7 +18,7 @@ interface HomePageProps {
 export function HomePage(props: HomePageProps) {
   return (
     <main className="view-shell" id="top">
-      <Hero theme={props.theme} />
+      <Hero theme={props.theme} onStartDemo={props.onStartDemo} />
       <AboutSection />
       <ServicesSection services={props.services} />
       <GallerySection />

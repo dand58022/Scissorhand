@@ -3,24 +3,24 @@ import type { Service, Stylist, StylistAvailability } from '@/lib/types';
 export const seedServices: Service[] = [
   {
     id: 'haircut',
-    name: 'Haircut',
+    name: 'Signature Cut',
     durationMinutes: 30,
     price: 75,
-    description: 'Precision shape, fringe work, and finish.'
+    description: 'Precision shape refinement, fringe work, and a polished finish.'
   },
   {
     id: 'digital-perm',
-    name: 'Digital Perm',
+    name: 'Texture Service',
     durationMinutes: 120,
     price: 220,
-    description: 'Soft movement, natural texture, and tailored wave pattern.'
+    description: 'Soft movement, controlled texture, and a tailored finish.'
   },
   {
     id: 'consultation',
-    name: 'Styling / Consultation',
+    name: 'Style Consultation',
     durationMinutes: 20,
     price: 35,
-    description: 'Editorial finish, style direction, maintenance planning.'
+    description: 'Look planning, maintenance guidance, and finish recommendations.'
   }
 ];
 
@@ -33,20 +33,20 @@ export const seedStylists: Stylist[] = [
   },
   {
     id: 'salon-artist-1',
-    name: 'Salon Artist 1',
-    specialty: 'Precision cutting',
+    name: 'Jordan Lee',
+    specialty: 'Precision cutting and shape refinement',
     serviceIds: ['haircut', 'consultation']
   },
   {
     id: 'salon-artist-2',
-    name: 'Salon Artist 2',
-    specialty: 'Digital perms',
+    name: 'Casey Morgan',
+    specialty: 'Texture services and polished finishing',
     serviceIds: ['digital-perm', 'consultation']
   },
   {
     id: 'salon-artist-3',
-    name: 'Salon Artist 3',
-    specialty: 'Editorial styling',
+    name: 'Riley Brooks',
+    specialty: 'Modern styling and event-ready finishing',
     serviceIds: ['haircut', 'consultation']
   }
 ];

@@ -1,3 +1,4 @@
+import { SALON_ADDRESS, SALON_POLICY_COPY } from '@/data/salonConfig';
 import type { BookingDraft, Service, Stylist } from '@/lib/types';
 import { formatPrice, getAppointmentSummary } from '@/lib/salonModel';
 
@@ -11,7 +12,7 @@ export function AppointmentSummary({ draft, services, stylists }: AppointmentSum
   const summary = getAppointmentSummary(draft, services, stylists);
 
   return (
-    <aside className="summary-panel">
+    <aside className="summary-panel" data-demo="booking-summary">
       <p className="eyebrow">Appointment Summary</p>
       <h3>{summary.serviceName}</h3>
       <dl>
@@ -39,8 +40,28 @@ export function AppointmentSummary({ draft, services, stylists }: AppointmentSum
           <dt>Reservation</dt>
           <dd>{summary.dateTime}</dd>
         </div>
+        <div>
+          <dt>Payment</dt>
+          <dd>{summary.paymentOptionLabel}</dd>
+        </div>
+        <div>
+          <dt>Card on file</dt>
+          <dd>{summary.cardOnFileLabel}</dd>
+        </div>
+        <div>
+          <dt>Card</dt>
+          <dd>{summary.cardLabel}</dd>
+        </div>
+        <div>
+          <dt>Policy</dt>
+          <dd>{summary.policyAcceptedLabel}</dd>
+        </div>
+        <div>
+          <dt>Location</dt>
+          <dd>{SALON_ADDRESS}</dd>
+        </div>
       </dl>
-      <p className="summary-note">Payment is handled in salon. This booking only reserves your appointment.</p>
+      <p className="summary-note">{SALON_POLICY_COPY}</p>
     </aside>
   );
 }

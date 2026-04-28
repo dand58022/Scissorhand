@@ -12,3 +12,8 @@ vite-dev*.log
 
 .pnpm-store/
 coverage/
+.superpowers/
+
+# Local planning/research artifacts not meant for origin
+examplePlan.md
+precision/

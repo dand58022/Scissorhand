@@ -116,6 +116,11 @@ export function fromAppointmentRow(row: AppointmentRow): Appointment {
     time: row.time,
     status: row.status,
     notes: row.notes ?? '',
+    paymentOption: 'pay-in-person',
+    cardOnFile: false,
+    cardLast4: '',
+    paymentStatus: 'pending',
+    policyAccepted: false,
     createdAt: row.created_at
   };
 }

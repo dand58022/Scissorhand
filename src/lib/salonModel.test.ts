@@ -26,7 +26,12 @@ const appointments: Appointment[] = [
     date: '2026-04-20',
     time: '10:00',
     status: 'upcoming',
-    notes: ''
+    notes: '',
+    paymentOption: 'pay-in-person',
+    cardOnFile: false,
+    cardLast4: '',
+    paymentStatus: 'pending',
+    policyAccepted: false
   },
   {
     id: 'apt-2',
@@ -38,7 +43,12 @@ const appointments: Appointment[] = [
     date: '2026-04-21',
     time: '13:30',
     status: 'upcoming',
-    notes: ''
+    notes: '',
+    paymentOption: 'pay-in-person',
+    cardOnFile: true,
+    cardLast4: '1188',
+    paymentStatus: 'card-hold-only',
+    policyAccepted: true
   },
   {
     id: 'apt-3',
@@ -50,7 +60,12 @@ const appointments: Appointment[] = [
     date: '2026-04-21',
     time: '15:00',
     status: 'cancelled',
-    notes: ''
+    notes: '',
+    paymentOption: 'pay-in-person',
+    cardOnFile: false,
+    cardLast4: '',
+    paymentStatus: 'pending',
+    policyAccepted: false
   }
 ];
 
@@ -65,7 +80,14 @@ describe('salon model helpers', () => {
         time: '10:00',
         serviceId: 'digital-perm',
         stylistId: 'salon-artist-2',
-        notes: ''
+        notes: '',
+        paymentOption: 'prepay-now',
+        cardholderName: 'Customer 1',
+        cardNumber: '4242424242424242',
+        expirationDate: '08/28',
+        cvc: '123',
+        billingZip: '27519',
+        policyAccepted: true
       },
       services,
       [{ id: 'salon-artist-2', name: 'Salon Artist 2', specialty: 'Texture, movement, and modern finishing', serviceIds: ['digital-perm'] }]
@@ -76,7 +98,11 @@ describe('salon model helpers', () => {
       price: 220,
       durationMinutes: 120,
       stylistName: 'Salon Artist 2',
-      dateTime: '2026-04-20 at 10:00'
+      dateTime: '2026-04-20 at 10:00',
+      paymentOptionLabel: 'Prepay now',
+      cardOnFileLabel: 'Yes',
+      cardLabel: 'Ending in 4242',
+      policyAcceptedLabel: 'Accepted'
     });
   });
 
@@ -90,7 +116,14 @@ describe('salon model helpers', () => {
         time: '',
         serviceId: '',
         stylistId: 'no-preference',
-        notes: ''
+        notes: '',
+        paymentOption: 'pay-in-person',
+        cardholderName: '',
+        cardNumber: '',
+        expirationDate: '',
+        cvc: '',
+        billingZip: '',
+        policyAccepted: false
       },
       services,
       [{ id: 'salon-artist-2', name: 'Salon Artist 2', specialty: 'Texture, movement, and modern finishing', serviceIds: ['digital-perm'] }]
@@ -101,7 +134,11 @@ describe('salon model helpers', () => {
       price: undefined,
       durationMinutes: undefined,
       stylistName: 'No preference',
-      dateTime: 'Choose date and time'
+      dateTime: 'Choose date and time',
+      paymentOptionLabel: 'Pay in person',
+      cardOnFileLabel: 'No',
+      cardLabel: 'No card on file',
+      policyAcceptedLabel: 'Pending'
     });
   });
 
@@ -206,7 +243,12 @@ describe('salon model helpers', () => {
         stylistId: 'no-preference',
         date: '2026-04-22',
         time: '10:00',
-        notes: ''
+        notes: '',
+        paymentOption: 'pay-in-person',
+        cardOnFile: true,
+        cardLast4: '4242',
+        paymentStatus: 'card-hold-only',
+        policyAccepted: true
       },
       appointments: [],
       services,
@@ -222,9 +264,51 @@ describe('salon model helpers', () => {
         serviceId: 'haircut',
         stylistId: 'salon-artist-1',
         time: '10:00',
-        status: 'upcoming'
+        status: 'upcoming',
+        paymentOption: 'pay-in-person',
+        cardOnFile: true,
+        cardLast4: '4242',
+        paymentStatus: 'card-hold-only',
+        policyAccepted: true
       });
     }
+  });
+
+  it('requires no-show policy acknowledgement before creating an appointment', () => {
+    const stylists = [
+      { id: 'salon-artist-1', name: 'Salon Artist 1', specialty: 'Cuts', serviceIds: ['haircut'] }
+    ];
+    const availability = [
+      { date: '2026-04-22', stylistId: 'salon-artist-1', times: ['10:00'] }
+    ];
+
+    const result = createAppointment({
+      input: {
+        customerName: 'Customer 9',
+        phone: '555-0109',
+        email: 'customer9@example.com',
+        serviceId: 'haircut',
+        stylistId: 'salon-artist-1',
+        date: '2026-04-22',
+        time: '10:00',
+        notes: '',
+        paymentOption: 'prepay-now',
+        cardOnFile: true,
+        cardLast4: '4242',
+        paymentStatus: 'paid',
+        policyAccepted: false
+      },
+      appointments: [],
+      services,
+      stylists,
+      availability,
+      id: 'apt-9'
+    });
+
+    expect(result).toEqual({
+      ok: false,
+      error: 'Please acknowledge the no-show and late-cancellation policy.'
+    });
   });
 
   it('prevents overlapping appointments for the same stylist', () => {
@@ -244,7 +328,12 @@ describe('salon model helpers', () => {
       date: '2026-04-22',
       time: '10:00',
       status: 'upcoming',
-      notes: ''
+      notes: '',
+      paymentOption: 'pay-in-person',
+      cardOnFile: false,
+      cardLast4: '',
+      paymentStatus: 'pending',
+      policyAccepted: false
     }];
 
     const result = createAppointment({
@@ -256,7 +345,12 @@ describe('salon model helpers', () => {
         stylistId: 'salon-artist-1',
         date: '2026-04-22',
         time: '10:20',
-        notes: ''
+        notes: '',
+        paymentOption: 'pay-in-person',
+        cardOnFile: false,
+        cardLast4: '',
+        paymentStatus: 'pending',
+        policyAccepted: true
       },
       appointments: existing,
       services,

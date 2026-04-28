@@ -1,3 +1,4 @@
+import { getMaskedCardLabel } from '@/data/salonConfig';
 import type { Appointment, BookingDraft, CreateAppointmentInput, Service, Stylist, StylistAvailability, TimeSlotOption } from './types';
 
 export function findService(services: Service[], serviceId: string) {
@@ -29,7 +30,11 @@ export function getAppointmentSummary(draft: BookingDraft, services: Service[], 
     price: service?.price,
     durationMinutes: service?.durationMinutes,
     stylistName: draft.stylistId === 'no-preference' ? 'No preference' : stylist?.name ?? 'Choose a stylist',
-    dateTime: draft.date && draft.time ? `${draft.date} at ${draft.time}` : 'Choose date and time'
+    dateTime: draft.date && draft.time ? `${draft.date} at ${draft.time}` : 'Choose date and time',
+    paymentOptionLabel: getPaymentOptionLabel(draft.paymentOption),
+    cardOnFileLabel: draft.cardNumber ? 'Yes' : 'No',
+    cardLabel: getMaskedCardLabel(getCardLast4(draft.cardNumber)),
+    policyAcceptedLabel: draft.policyAccepted ? 'Accepted' : 'Pending'
   };
 }
 
@@ -134,6 +139,10 @@ export function createAppointment({
     return { ok: false, error: 'Select a valid service.' };
   }
 
+  if (!input.policyAccepted) {
+    return { ok: false, error: 'Please acknowledge the no-show and late-cancellation policy.' };
+  }
+
   if (input.stylistId !== 'no-preference' && hasAppointmentOverlap({
     appointments,
     services,
@@ -187,7 +196,12 @@ export function createAppointment({
       date: input.date,
       time: input.time,
       status: 'upcoming',
-      notes: input.notes
+      notes: input.notes,
+      paymentOption: input.paymentOption,
+      cardOnFile: input.cardOnFile,
+      cardLast4: input.cardLast4,
+      paymentStatus: input.paymentStatus,
+      policyAccepted: input.policyAccepted
     }
   };
 }
@@ -253,6 +267,14 @@ export function getServiceName(services: Service[], serviceId: string) {
 
 export function getStylistName(stylists: Stylist[], stylistId: string) {
   return findStylist(stylists, stylistId)?.name ?? 'Unassigned';
+}
+
+export function getPaymentOptionLabel(paymentOption: CreateAppointmentInput['paymentOption']) {
+  return paymentOption === 'prepay-now' ? 'Prepay now' : 'Pay in person';
+}
+
+export function getCardLast4(cardNumber: string) {
+  return cardNumber.replace(/\D/g, '').slice(-4);
 }
 
 function timeToMinutes(time: string) {
