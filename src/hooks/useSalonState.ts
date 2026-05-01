@@ -86,8 +86,8 @@ export function useSalonState(isDemoMode = false) {
   const customers: CustomerProfile[] = demoCustomers;
   const adminDataNotice = shouldUseMockAdminData
     ? (isDemoMode
-      ? 'Demo mode is active. Admin data is showing polished sample bookings and payment states.'
-      : 'Showing sample admin data because live appointments are unavailable.')
+      ? 'Demo mode is active. Barber and owner data are showing polished sample bookings and payment states.'
+      : 'Showing sample barber and owner data because live appointments are unavailable.')
     : '';
 
   function updateBookingDraft(draft: BookingDraft) {

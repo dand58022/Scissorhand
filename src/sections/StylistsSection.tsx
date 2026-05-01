@@ -10,8 +10,8 @@ export function StylistsSection({ stylists }: StylistsSectionProps) {
   return (
     <section className="page-section" aria-labelledby="stylists-heading">
       <div className="section-heading section-heading--compact">
-        <p className="eyebrow">Stylists</p>
-        <h2 id="stylists-heading">Meet the salon team</h2>
+        <p className="eyebrow">Barbers</p>
+        <h2 id="stylists-heading">Meet the barbershop team</h2>
       </div>
       <div className="stylist-grid">
         {publicStylists.map((stylist) => (

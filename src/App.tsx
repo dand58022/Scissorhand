@@ -5,9 +5,10 @@ import { demoWalkthroughSteps } from '@/data/demoData';
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
 import { useSalonState } from '@/hooks/useSalonState';
-import { AdminPage } from '@/pages/AdminPage';
+import { BarberPage } from '@/pages/BarberPage';
 import { BookingPage } from '@/pages/BookingPage';
 import { HomePage } from '@/pages/HomePage';
+import { OwnerPage } from '@/pages/OwnerPage';
 import type { ThemeMode } from '@/lib/types';
 
 export default function App() {
@@ -54,7 +55,7 @@ function AppShell() {
 
   function startDemo() {
     setActiveDemoStepIndex(0);
-    navigate({ pathname: '/', search: '?demo=1' });
+    navigate({ pathname: '/customer', search: '?demo=1' });
   }
 
   function closeDemo() {
@@ -108,20 +109,19 @@ function AppShell() {
         }}
       />
       <Routes>
-        <Route path="/" element={<HomePage onStartDemo={startDemo} services={salon.services} stylists={salon.stylists} theme={theme} />} />
+        <Route path="/" element={<HomePage theme={theme} />} />
+        <Route path="/customer" element={<HomePage theme={theme} />} />
         <Route path="/booking" element={<BookingPage {...bookingProps} />} />
         <Route
-          path="/admin"
+          path="/barber"
           element={(
-            <AdminPage
+            <BarberPage
               adminDataNotice={salon.adminDataNotice}
               adminError={salon.adminError}
-              adminMetrics={salon.adminMetrics}
               customers={salon.customers}
-              filteredAppointments={salon.filteredAppointments}
+              appointments={salon.appointments}
               isLoadingAppointments={salon.isLoadingAppointments}
               recentActivity={salon.recentActivity}
-              statusFilter={salon.adminStatusFilter}
               selectedAppointment={salon.selectedAppointment}
               services={salon.adminServices}
               stylists={salon.adminStylists}
@@ -134,9 +134,11 @@ function AppShell() {
             />
           )}
         />
+        <Route path="/owner" element={<OwnerPage />} />
+        <Route path="/admin" element={<Navigate to="/barber" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      {location.pathname !== '/admin' && <Footer theme={theme} />}
+      {!['/barber', '/owner', '/admin'].includes(location.pathname) && <Footer theme={theme} />}
       {isDemoMode && activeDemoStep && (
         <DemoWalkthrough
           step={activeDemoStep}

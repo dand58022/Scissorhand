@@ -2,25 +2,60 @@ import type { Service, Stylist, StylistAvailability } from '@/lib/types';
 
 export const seedServices: Service[] = [
   {
-    id: 'haircut',
-    name: 'Signature Cut',
-    durationMinutes: 30,
-    price: 75,
-    description: 'Precision shape refinement, fringe work, and a polished finish.'
+    id: 'apprentice-haircut',
+    name: 'Apprentice Haircut',
+    durationMinutes: 60,
+    price: 25,
+    description: 'Apprentice barber haircut service.'
   },
   {
-    id: 'digital-perm',
-    name: 'Texture Service',
-    durationMinutes: 120,
-    price: 220,
-    description: 'Soft movement, controlled texture, and a tailored finish.'
-  },
-  {
-    id: 'consultation',
-    name: 'Style Consultation',
-    durationMinutes: 20,
+    id: 'apprentice-haircut-beard',
+    name: 'Apprentice Haircut and Beard',
+    durationMinutes: 60,
     price: 35,
-    description: 'Look planning, maintenance guidance, and finish recommendations.'
+    description: 'Apprentice haircut and beard service.'
+  },
+  {
+    id: 'haircut',
+    name: 'Haircut',
+    durationMinutes: 45,
+    price: 40,
+    description: 'Clean haircut service.'
+  },
+  {
+    id: 'haircut-beard',
+    name: 'Haircut and Beard',
+    durationMinutes: 60,
+    price: 50,
+    description: 'Haircut with beard detailing.'
+  },
+  {
+    id: 'scissor-cut',
+    name: 'Scissor Cut',
+    durationMinutes: 45,
+    price: 60,
+    description: 'Scissor cut service.'
+  },
+  {
+    id: 'scissor-cut-beard',
+    name: 'Scissor Cut and Beard',
+    durationMinutes: 60,
+    price: 70,
+    description: 'Scissor cut with beard detailing.'
+  },
+  {
+    id: 'lineup',
+    name: 'Lineup',
+    durationMinutes: 30,
+    price: 30,
+    description: 'Sharp lineup and cleanup.'
+  },
+  {
+    id: 'after-hours',
+    name: 'After Hours',
+    durationMinutes: 720,
+    price: 80,
+    description: 'Call 617-691-9662 to request.'
   }
 ];
 
@@ -28,26 +63,26 @@ export const seedStylists: Stylist[] = [
   {
     id: 'no-preference',
     name: 'No preference',
-    specialty: 'Match me with an available stylist',
-    serviceIds: ['haircut', 'digital-perm', 'consultation']
+    specialty: 'Match me with an available barber',
+    serviceIds: seedServices.map((service) => service.id)
   },
   {
     id: 'salon-artist-1',
     name: 'Jordan Lee',
     specialty: 'Precision cutting and shape refinement',
-    serviceIds: ['haircut', 'consultation']
+    serviceIds: ['haircut', 'haircut-beard', 'scissor-cut', 'scissor-cut-beard', 'lineup', 'after-hours']
   },
   {
     id: 'salon-artist-2',
     name: 'Casey Morgan',
-    specialty: 'Texture services and polished finishing',
-    serviceIds: ['digital-perm', 'consultation']
+    specialty: 'Beard work, lineups, and clean finishing',
+    serviceIds: ['apprentice-haircut', 'apprentice-haircut-beard', 'haircut', 'haircut-beard', 'lineup']
   },
   {
     id: 'salon-artist-3',
     name: 'Riley Brooks',
     specialty: 'Modern styling and event-ready finishing',
-    serviceIds: ['haircut', 'consultation']
+    serviceIds: ['haircut', 'haircut-beard', 'scissor-cut', 'scissor-cut-beard', 'lineup', 'after-hours']
   }
 ];
 

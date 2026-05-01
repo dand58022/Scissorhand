@@ -1,8 +1,8 @@
 import { formatPrice } from '@/lib/salonModel';
-import type { Service } from '@/lib/types';
+import type { HomepageService } from '@/lib/types';
 
 interface ServicesSectionProps {
-  services: Service[];
+  services: HomepageService[];
 }
 
 export function ServicesSection({ services }: ServicesSectionProps) {
@@ -11,16 +11,17 @@ export function ServicesSection({ services }: ServicesSectionProps) {
       <div className="section-heading section-heading--compact">
         <p className="eyebrow">Services</p>
         <h2 id="services-heading">Service pricing</h2>
+        <p className="section-support">Choose the service that fits your appointment. Final availability is confirmed during booking.</p>
       </div>
       <div className="service-strip" aria-label="Service pricing">
         {services.map((service) => (
           <article key={service.id}>
             <div>
               <h3>{service.name}</h3>
-              <p>{service.description}</p>
+              <p>{service.durationLabel}</p>
+              {service.note && <small>{service.note}</small>}
             </div>
             <strong>{formatPrice(service.price)}</strong>
-            <span>{service.durationMinutes} min</span>
           </article>
         ))}
       </div>

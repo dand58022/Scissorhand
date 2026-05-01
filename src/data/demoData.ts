@@ -35,7 +35,7 @@ export const demoStylists: Stylist[] = [
   {
     id: 'no-preference',
     name: 'No preference',
-    specialty: 'Match me with the best available stylist',
+    specialty: 'Match me with the best available barber',
     serviceIds: demoServices.map((service) => service.id)
   },
   {
@@ -203,8 +203,8 @@ export const demoCustomers: CustomerProfile[] = [
 ];
 
 export const demoAdminMetrics: AdminMetric[] = [
-  { id: 'upcoming', label: 'Upcoming this week', value: '18', detail: '4 prepaid, 14 paying in salon' },
-  { id: 'retention', label: 'Returning guests', value: '72%', detail: 'Based on the last 60 days of bookings' },
+  { id: 'upcoming', label: 'Upcoming this week', value: '18', detail: '4 prepaid, 14 paying in shop' },
+  { id: 'retention', label: 'Returning clients', value: '72%', detail: 'Based on the last 60 days of bookings' },
   { id: 'revenue', label: 'Confirmed revenue', value: '$2,640', detail: 'Prepaid and scheduled services combined' },
   { id: 'occupancy', label: 'Schedule coverage', value: '83%', detail: 'Prime afternoon openings nearly full' }
 ];
@@ -218,37 +218,37 @@ export const demoRecentActivity: RecentActivityItem[] = [
 export const demoWalkthroughSteps: DemoWalkthroughStep[] = [
   {
     id: 'home-hero',
-    route: '/',
+    route: '/customer',
     title: 'Brand and first impression',
-    body: 'This landing section introduces the salon with a premium brand moment and a clean path into booking.',
+    body: 'This landing section introduces the barbershop with a premium brand moment and a clean path into booking.',
     target: '[data-demo="hero"]'
   },
   {
     id: 'home-booking-entry',
-    route: '/',
+    route: '/customer',
     title: 'Booking entry point',
-    body: 'The home page keeps the booking call-to-action prominent so guests can move into reservations quickly.',
+    body: 'The home page keeps the booking call-to-action prominent so clients can move into reservations quickly.',
     target: '[data-demo="home-booking-cta"]'
   },
   {
     id: 'booking-service',
     route: '/booking',
     title: 'Service selection',
-    body: 'The booking flow starts with the service so timing, pricing, and stylist compatibility stay clear.',
+    body: 'The booking flow starts with the service so timing, pricing, and barber compatibility stay clear.',
     target: '[data-demo="booking-service"]'
   },
   {
     id: 'booking-stylist',
     route: '/booking',
-    title: 'Stylist selection',
-    body: 'Guests can choose a stylist or leave it open for the best available match.',
+    title: 'Barber selection',
+    body: 'Clients can choose a barber or leave it open for the best available match.',
     target: '[data-demo="booking-stylist"]'
   },
   {
     id: 'booking-time',
     route: '/booking',
     title: 'Date and time selection',
-    body: 'Availability updates around the chosen service and stylist so only workable times are shown.',
+    body: 'Availability updates around the chosen service and barber so only workable times are shown.',
     target: '[data-demo="booking-time"]'
   },
   {
@@ -266,17 +266,17 @@ export const demoWalkthroughSteps: DemoWalkthroughStep[] = [
     target: '[data-demo="booking-summary"]'
   },
   {
-    id: 'admin-overview',
-    route: '/admin',
-    title: 'Dashboard overview',
-    body: 'The admin view opens with quick metrics so a salon owner can understand demand, revenue mix, and retention at a glance.',
-    target: '[data-demo="admin-overview"]'
+    id: 'barber-overview',
+    route: '/barber',
+    title: 'Barber dashboard overview',
+    body: 'The barber view keeps today’s schedule, client notes, product sales, and payout status in one place.',
+    target: '[data-demo="barber-overview"]'
   },
   {
-    id: 'admin-appointments',
-    route: '/admin',
-    title: 'Appointment management',
-    body: 'Staff can review bookings, payment status, card holds, and recent customer activity from one place.',
-    target: '[data-demo="admin-appointments"]'
+    id: 'owner-overview',
+    route: '/owner',
+    title: 'Owner reporting and access control',
+    body: 'The owner view adds shop-wide reporting, payout routing, inventory, tax summaries, payment setup, and role access planning.',
+    target: '[data-demo="owner-overview"]'
   }
 ];

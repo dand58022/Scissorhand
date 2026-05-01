@@ -1,6 +1,6 @@
 import { SALON_ADDRESS, SALON_POLICY_COPY } from '@/data/salonConfig';
 import type { BookingDraft, Service, Stylist } from '@/lib/types';
-import { formatPrice, getAppointmentSummary } from '@/lib/salonModel';
+import { formatDuration, formatPrice, getAppointmentSummary } from '@/lib/salonModel';
 
 interface AppointmentSummaryProps {
   draft: BookingDraft;
@@ -22,10 +22,10 @@ export function AppointmentSummary({ draft, services, stylists }: AppointmentSum
         </div>
         <div>
           <dt>Duration</dt>
-          <dd>{summary.durationMinutes === undefined ? 'Select service' : `${summary.durationMinutes} min`}</dd>
+          <dd>{summary.durationMinutes === undefined ? 'Select service' : formatDuration(summary.durationMinutes)}</dd>
         </div>
         <div>
-          <dt>Stylist</dt>
+          <dt>Barber</dt>
           <dd>{summary.stylistName}</dd>
         </div>
         <div>

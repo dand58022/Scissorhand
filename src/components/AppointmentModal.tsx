@@ -77,7 +77,7 @@ export function AppointmentModal({ appointment, services, stylists, onClose, onS
             </select>
           </label>
           <label className="field-group">
-            <span>Stylist</span>
+            <span>Barber</span>
             <select value={draft.stylistId} onChange={(event) => updateField('stylistId', event.target.value)}>
               {stylists.map((stylist) => (
                 <option key={stylist.id} value={stylist.id}>{stylist.name}</option>

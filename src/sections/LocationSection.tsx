@@ -19,9 +19,9 @@ export function LocationSection() {
         </div>
         <div className="map-placeholder">
           <span className="map-pin" aria-hidden="true" />
-          <span className="production-badge">In production</span>
+          <span className="production-badge">Map preview</span>
           <strong>Interactive map</strong>
-          <small>Google Maps integration coming soon.</small>
+          <small>Swap this preview for live directions before launch.</small>
         </div>
       </div>
     </section>

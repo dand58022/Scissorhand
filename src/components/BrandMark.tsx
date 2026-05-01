@@ -1,8 +1,5 @@
-import primaryIconDark from '@/assets/logos/primary_icon_dark_cropped.png';
-import primaryIconLight from '@/assets/logos/primary_icon_light_cropped.png';
-import primaryLogoDark from '@/assets/logos/primary_logo_dark_cropped.png';
-import primaryLogoLight from '@/assets/logos/primary_logo_light_cropped.png';
-import mainLogoTransparent from '@/assets/logos/main_logo_transparent.png';
+import mainLogo from '../../precision/main_logo.png';
+import newLogo from '../../precision/new_logo_cropped.png';
 import type { ThemeMode } from '@/lib/types';
 
 interface BrandMarkProps {
@@ -14,40 +11,34 @@ interface BrandMarkProps {
 
 const logoMap = {
   'main-logo': {
-    dark: mainLogoTransparent,
-    light: mainLogoTransparent
+    dark: mainLogo,
+    light: mainLogo
   },
-  'primary-logo': {
-    dark: primaryLogoDark,
-    light: primaryLogoLight
-  },
-  'primary-icon': {
-    dark: primaryIconDark,
-    light: primaryIconLight
+  'nav-logo': {
+    dark: newLogo,
+    light: newLogo
   }
 };
 
 const placementMap = {
-  // Compact placements use the cropped icon artwork so the visible mark size
-  // is controlled by the wrapper rather than by the original transparent canvas.
   navbar: {
-    variant: 'main-logo'
+    variant: 'nav-logo'
   },
   hero: {
-    variant: 'primary-logo'
+    variant: 'main-logo'
   },
   booking: {
-    variant: 'primary-icon'
+    variant: 'nav-logo'
   },
   admin: {
-    variant: 'primary-icon'
+    variant: 'nav-logo'
   },
   footer: {
-    variant: 'primary-icon'
+    variant: 'nav-logo'
   }
 } as const;
 
-export function BrandMark({ alt = 'Scissorhands', className, placement, theme }: BrandMarkProps) {
+export function BrandMark({ alt = 'Precision Barber Co.', className, placement, theme }: BrandMarkProps) {
   const { variant } = placementMap[placement];
 
   return (

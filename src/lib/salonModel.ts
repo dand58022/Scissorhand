@@ -21,6 +21,19 @@ export function formatPrice(price?: number) {
   }).format(price);
 }
 
+export function formatDuration(durationMinutes?: number) {
+  if (durationMinutes === undefined) {
+    return '';
+  }
+
+  if (durationMinutes % 60 === 0) {
+    const hours = durationMinutes / 60;
+    return `${hours} hr${hours === 1 ? '' : 's'}`;
+  }
+
+  return `${durationMinutes} mins`;
+}
+
 export function getAppointmentSummary(draft: BookingDraft, services: Service[], stylists: Stylist[]) {
   const service = findService(services, draft.serviceId);
   const stylist = findStylist(stylists, draft.stylistId);
@@ -29,7 +42,7 @@ export function getAppointmentSummary(draft: BookingDraft, services: Service[], 
     serviceName: service?.name ?? 'Select a service',
     price: service?.price,
     durationMinutes: service?.durationMinutes,
-    stylistName: draft.stylistId === 'no-preference' ? 'No preference' : stylist?.name ?? 'Choose a stylist',
+    stylistName: draft.stylistId === 'no-preference' ? 'No preference' : stylist?.name ?? 'Choose a barber',
     dateTime: draft.date && draft.time ? `${draft.date} at ${draft.time}` : 'Choose date and time',
     paymentOptionLabel: getPaymentOptionLabel(draft.paymentOption),
     cardOnFileLabel: draft.cardNumber ? 'Yes' : 'No',
@@ -251,7 +264,7 @@ export function getAvailabilityContext(service?: Service, stylist?: Stylist) {
     return `Available openings for ${service.name} with ${stylist.name}`;
   }
 
-  return `Available openings for ${service.name} across stylists`;
+  return `Available openings for ${service.name} across barbers`;
 }
 
 export function groupTimeSlotsByDayPart(slots: TimeSlotOption[]) {

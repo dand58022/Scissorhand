@@ -25,7 +25,7 @@ export function AppointmentScheduler({
     <section className="panel appointments-panel">
       <div className="section-heading">
         <p className="eyebrow">Scheduler</p>
-        <h2>Daily schedule</h2>
+        <h2>My daily schedule</h2>
       </div>
 
       {visibleAppointments.length === 0 ? (

@@ -1,5 +1,5 @@
-import { SALON_POLICY_ACKNOWLEDGEMENT, SALON_POLICY_COPY } from '@/data/salonConfig';
-import { getAvailabilityContext, getCompatibleStylists, findService, findStylist } from '@/lib/salonModel';
+import { SALON_NAME, SALON_POLICY_ACKNOWLEDGEMENT, SALON_POLICY_COPY } from '@/data/salonConfig';
+import { formatDuration, getAvailabilityContext, getCompatibleStylists, findService, findStylist } from '@/lib/salonModel';
 import type { BookingDraft, Service, Stylist, TimeSlotOption } from '@/lib/types';
 import { AppointmentSummary } from './AppointmentSummary';
 import { TimeSlotSelector } from './TimeSlotSelector';
@@ -66,7 +66,7 @@ export function BookingForm({
       >
         {confirmed && (
           <div className="success-banner">
-            Appointment confirmed. Your visit is reserved with Scissorhands.
+            Appointment confirmed. Your visit is reserved with {SALON_NAME}.
             <button type="button" onClick={onResetConfirmation}>Book another</button>
           </div>
         )}
@@ -85,17 +85,20 @@ export function BookingForm({
               <option value="">Select a service</option>
               {services.map((service) => (
                 <option key={service.id} value={service.id}>
-                  {service.name} - ${service.price} / {service.durationMinutes} min
+                  {service.name} - ${service.price} / {formatDuration(service.durationMinutes)}
                 </option>
               ))}
             </select>
           </label>
+          {selectedService?.id === 'after-hours' && (
+            <p className="availability-helper">{selectedService.description}</p>
+          )}
         </div>
 
         <div className="booking-step">
           <p className="step-label">Step 2</p>
           <label className="field-group" data-demo="booking-stylist">
-            <span>Stylist</span>
+            <span>Barber</span>
             <select value={draft.stylistId} onChange={(event) => updateField('stylistId', event.target.value)}>
               {compatibleStylists.map((stylist) => (
                 <option key={stylist.id} value={stylist.id}>

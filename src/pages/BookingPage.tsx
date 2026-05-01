@@ -1,5 +1,5 @@
 import { BrandMark } from '@/components/BrandMark';
-import { SALON_ADDRESS, SALON_BOOKING_COPY } from '@/data/salonConfig';
+import { SALON_ADDRESS, SALON_BOOKING_COPY, SALON_NAME } from '@/data/salonConfig';
 import { BookingSection } from '@/sections/BookingSection';
 import type { BookingDraft, Service, Stylist, ThemeMode, TimeSlotOption } from '@/lib/types';
 
@@ -21,9 +21,10 @@ export function BookingPage(props: BookingPageProps) {
   return (
     <main className="view-shell view-shell--narrow" id="top">
       <section className="booking-page-intro">
-        <p className="eyebrow">Reservations</p>
-        <h1>Reserve your Scissorhands appointment.</h1>
+        <p className="eyebrow">Customer View</p>
+        <h1>Reserve your {SALON_NAME} appointment.</h1>
         <p>{SALON_BOOKING_COPY}</p>
+        <p className="availability-helper">Customer booking stays client-facing in demo mode, including prepay and card-hold messaging.</p>
         <p className="booking-page-address">{SALON_ADDRESS}</p>
       </section>
       <BookingSection {...props} />

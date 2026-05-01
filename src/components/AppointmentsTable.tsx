@@ -21,11 +21,11 @@ export function AppointmentsTable({ appointments, services, stylists, onSelectAp
         <table>
           <thead>
             <tr>
-              <th>Customer name</th>
+              <th>Client name</th>
               <th>Service</th>
               <th>Date</th>
               <th>Time</th>
-              <th>Stylist</th>
+              <th>Barber</th>
               <th>Duration</th>
               <th>Payment</th>
               <th>Card</th>

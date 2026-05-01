@@ -30,7 +30,7 @@ export function TimeSlotSelector({
       ) : (
         <>
           {slots.length === 0 ? (
-            <p className="availability-helper">No openings match this combination. Try another stylist or date.</p>
+            <p className="availability-helper">No openings match this combination. Try another barber or date.</p>
           ) : (
             <div className="time-slot-groups">
               <TimeSlotGroup title="Morning" slots={groupedSlots.morning} selectedTime={selectedTime} onSelect={onSelect} />
